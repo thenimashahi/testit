@@ -1,6 +1,9 @@
 package com.example.midterm2_skeletonproject;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,18 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class ModelYearDialogFragment extends DialogFragment {
+    private DBHandler mDBHandler;
+
+    static ModelYearDialogFragment newInstance(String owner, String img) {
+        ModelYearDialogFragment f = new ModelYearDialogFragment();
+        Bundle args = new Bundle();
+        args.putString("owner", owner);
+        args.putString("image", img);
+        f.setArguments(args);
+
+        return f;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +56,10 @@ public class ModelYearDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        NumberPicker yearPicker = (NumberPicker) view.findViewById(R.id.yearPicker);
-        Spinner modelSpinner = view.findViewById(R.id.modelSpinner);
+        mDBHandler = new DBHandler(view.getContext(), "null", null, 1);
+
+        final NumberPicker yearPicker = (NumberPicker) view.findViewById(R.id.yearPicker);
+        final Spinner modelSpinner = view.findViewById(R.id.modelSpinner);
         Button saveCarBtn = view.findViewById(R.id.saveCarBtn);
 
         Calendar calendar = Calendar.getInstance();
@@ -58,12 +75,19 @@ public class ModelYearDialogFragment extends DialogFragment {
         saveCarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveCar();
+                int year = yearPicker.getValue();
+                String model = modelSpinner.getSelectedItem().toString();
+                saveCar(year, model);
             }
         });
     }
 
-    private void saveCar() {
+    private void saveCar(int year, String model) {
+        assert getArguments() != null;
+        String owner = getArguments().getString("owner");
+        String img = getArguments().getString("image");
+        mDBHandler.addCar(new Car(owner, img, year, model));
+
         this.dismiss();
     }
 }

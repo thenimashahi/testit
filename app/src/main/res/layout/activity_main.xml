@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
     <EditText
         android:id="@+id/studentName"
-        android:hint="Enter Your Name"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="Enter Your Name"
+        android:inputType="text" />
 
     <ImageView
         android:id="@+id/personalImageID"
@@ -21,6 +23,7 @@
         app:srcCompat="@drawable/car">
 
     </ImageView>
+
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
@@ -29,21 +32,22 @@
         android:text="Your car Image">
 
     </Button>
+
     <Button
         android:id="@+id/button2"
-        android:onClick="addNewCarModelAndYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="addNewCarModelAndYear"
         android:text="Add model and Year">
 
     </Button>
 
     <Button
         android:id="@+id/button3"
-        android:text="Save Car"
-        android:onClick="saveCar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="saveCar"
+        android:text="Save Car">
 
     </Button>
 </LinearLayout>
