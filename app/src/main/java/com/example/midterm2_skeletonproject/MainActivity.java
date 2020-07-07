@@ -1,5 +1,6 @@
 package com.example.midterm2_skeletonproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -41,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void uploade(View view) {
         //open camera app and take a photo of the car. (use an emulator fixed camera instead if you don't have physical device)
-
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
 
 
@@ -57,5 +61,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(reportIntent);
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+        }
     }
 }
