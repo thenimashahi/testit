@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Midterm2_SkeletonProject</string>
+
+    <string name="dialog_model_title">Enter the car model</string>
+    <string name="dialog_year_title">Enter the car year</string>
+    <string name="btn_save">Save</string>
 </resources>
